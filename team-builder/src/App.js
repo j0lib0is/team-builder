@@ -1,23 +1,23 @@
 import React, { useState } from 'react';
-import logo from './logo.svg';
 import './App.css';
-import Form from './components/form';
+import Form from './components/Form';
 
 const defaultValues = {
   name: '',
-  hero: ''
+  role: '',
+  email: ''
 }
 
 function App() {
 
   // Set up state to hold list of team members
   const [ team, setTeam ] = useState([
-    { id: 0, name: 'Tony Stark', hero: 'Iron Man' },
-    { id: 1, name: 'Buck Rogers', hero: 'Captain America' },
-    { id: 2, name: 'Bruce Banner', hero: 'Hulk' },
-    { id: 3, name: 'Clint Barton', hero: 'Hawk Eye' },
-    { id: 4, name: 'Natasha Romanov', hero: 'Black Widow' },
-    { id: 5, name: 'Peter Parker', hero: 'SpiderMan' }
+    { id: 0, name: 'Tony Stark', role: 'Iron Man', email: 'tony@starkindustries.com' },
+    { id: 1, name: 'Buck Rogers', role: 'Captain America', email: 'captain@usa.gov' },
+    { id: 2, name: 'Bruce Banner', role: 'Hulk', email: 'b.banner@culver.edu' },
+    { id: 3, name: 'Clint Barton', role: 'Hawk Eye', email: 'N/A' },
+    { id: 4, name: 'Natasha Romanov', role: 'Black Widow', email: 'N/A' },
+    { id: 5, name: 'Peter Parker', role: 'SpiderMan', email: 'thespiderman@hotmail.com' }
   ]);
   // Set up state to hold form values and initialize to default values
   const [ formValues, setFormValues ] = useState(defaultValues);
@@ -32,29 +32,33 @@ function App() {
     // Save the newly added Avenger to a variable
     const submittedAvenger = {
       name: formValues.name.trim(),
-      hero: formValues.hero.trim()
+      role: formValues.role.trim(),
+      email: formValues.email.trim()
     }
 
-    if (!submittedAvenger.name || !submittedAvenger.hero) {
+    if (!submittedAvenger.name || !submittedAvenger.role || !submittedAvenger.email) {
       setError('Oops, looks like you are missing something.')
     } else {
-      setTeam([submittedAvenger, ...team]);
+      setTeam([...team, submittedAvenger]);
       setFormValues(defaultValues);
     }
-
-    console.log(team);
   }
 
   return (
     <div className='App'>
       <header className='App-header'>
-        <h1>Avengers</h1>
+        <h1>The Avengers</h1>
       </header>
-      <Form avenger={formValues} changeHandler={changeHandler} submitHandler={submitHandler} />
-      <p>{error}</p>
-      {/* {team.map(avenger => {
-        (<div><p>{avenger}</p></div>)
-      })} */}
+      <div className='container'>
+        <Form avenger={formValues} changeHandler={changeHandler} submitHandler={submitHandler} />
+        <p>{error}</p>
+        {team.map((avenger, idx) =>
+          <div key={avenger.id} className='avenger'>
+            <h4>{avenger.name} is {avenger.role}</h4>
+            <p>{avenger.email}</p>
+          </div>
+        )}
+      </div>
     </div>
   );
 }

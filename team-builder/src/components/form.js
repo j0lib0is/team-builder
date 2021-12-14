@@ -4,19 +4,17 @@ export default function Form(props) {
 	const { avenger, submitHandler, changeHandler } = props;
 
 	const onChange = event => {
-		// console.log(event.target.name, event.target.value);
 		const { name, value } = event.target;
 		changeHandler(name, value);
 	}
 
 	const onSubmit = event => {
-		// console.log(event);
 		event.preventDefault();
     	submitHandler();
 	}
 
 	return(
-		<form onSubmit={onSubmit}>
+		<form className='submission' onSubmit={onSubmit}>
 			<label>
 				Name
 				<input 
@@ -28,12 +26,22 @@ export default function Form(props) {
 				/>
 			</label>
 			<label>
-				Superhero Name
+				Role
 				<input 
-					value={avenger.hero}
-					name='hero'
+					value={avenger.role}
+					name='role'
 					type='text'
-					placeholder='Superhero Name'
+					placeholder='Role'
+					onChange={onChange}
+				/>
+			</label>
+			<label>
+				Email
+				<input 
+					value={avenger.email}
+					name='email'
+					type='email'
+					placeholder='johndoe@email.com'
 					onChange={onChange}
 				/>
 			</label>
