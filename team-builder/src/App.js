@@ -53,9 +53,9 @@ function App() {
         <Form avenger={formValues} changeHandler={changeHandler} submitHandler={submitHandler} />
         <p>{error}</p>
         {team.map((avenger, idx) =>
-          <div key={avenger.id} className='avenger'>
+          <div key={idx} className='avenger'>
             <h4>{avenger.name} is {avenger.role}</h4>
-            <p>{avenger.email}</p>
+            <a href={`mailto:${avenger.email}`}>{avenger.email}</a>
           </div>
         )}
       </div>
